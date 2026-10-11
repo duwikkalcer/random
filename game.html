@@ -1,0 +1,163 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game Suit</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background: #f2f2f2;
+            padding-top: 50px;
+        }
+
+        .game {
+            background: white;
+            width: 400px;
+            margin: auto;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 0 10px gray;
+        }
+
+        button {
+            padding: 12px 20px;
+            margin: 5px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background: #ddd;
+        }
+
+        #hasil {
+            font-size: 20px;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="game">
+    <h1>🎮 Game Suit</h1>
+
+    <h3>Pilih Jenis Suit</h3>
+
+    <button onclick="pilihGame('gajah')">
+        🐘 Gajah - Orang - Semut
+    </button>
+
+    <button onclick="pilihGame('batu')">
+        🪨 Batu - Gunting - Kertas
+    </button>
+
+    <div id="pilihan" style="margin-top: 25px;"></div>
+
+    <p id="hasil"></p>
+</div>
+
+<script>
+
+let jenisGame = "";
+
+function pilihGame(jenis) {
+    jenisGame = jenis;
+
+    if (jenis === "gajah") {
+        document.getElementById("pilihan").innerHTML = `
+            <h3>Pilih:</h3>
+            <button onclick="main('gajah')">🐘 Gajah</button>
+            <button onclick="main('orang')">👤 Orang</button>
+            <button onclick="main('semut')">🐜 Semut</button>
+        `;
+    } 
+    
+    else {
+        document.getElementById("pilihan").innerHTML = `
+            <h3>Pilih:</h3>
+            <button onclick="main('batu')">🪨 Batu</button>
+            <button onclick="main('gunting')">✂️ Gunting</button>
+            <button onclick="main('kertas')">📄 Kertas</button>
+        `;
+    }
+
+    document.getElementById("hasil").innerHTML = "";
+}
+
+
+function main(pemain) {
+
+    let pilihanKomputer;
+
+    if (jenisGame === "gajah") {
+
+        let pilihan = ["gajah", "orang", "semut"];
+
+        let random = Math.floor(Math.random() * pilihan.length);
+
+        pilihanKomputer = pilihan[random];
+
+    } 
+    
+    else {
+
+        let pilihan = ["batu", "gunting", "kertas"];
+
+        let random = Math.floor(Math.random() * pilihan.length);
+
+        pilihanKomputer = pilihan[random];
+    }
+
+    let hasil = "";
+
+    if (pemain === pilihanKomputer) {
+        hasil = "🤝 SERI!";
+    }
+
+    else if (jenisGame === "gajah") {
+
+        if (
+            (pemain === "gajah" && pilihanKomputer === "orang") ||
+            (pemain === "orang" && pilihanKomputer === "semut") ||
+            (pemain === "semut" && pilihanKomputer === "gajah")
+        ) {
+            hasil = "🎉 KAMU MENANG!";
+        } 
+        else {
+            hasil = "😢 KAMU KALAH!";
+        }
+    }
+
+    else {
+
+        if (
+            (pemain === "batu" && pilihanKomputer === "gunting") ||
+            (pemain === "gunting" && pilihanKomputer === "kertas") ||
+            (pemain === "kertas" && pilihanKomputer === "batu")
+        ) {
+            hasil = "🎉 KAMU MENANG!";
+        } 
+        else {
+            hasil = "😢 KAMU KALAH!";
+        }
+    }
+
+    document.getElementById("hasil").innerHTML = `
+        Kamu memilih: <b>${pemain}</b><br>
+        Komputer memilih: <b>${pilihanKomputer}</b><br><br>
+        ${hasil}
+    `;
+}
+
+</script>
+
+</body>
+</html>
